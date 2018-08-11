@@ -8,12 +8,13 @@ class Fish {
   PVector velocity;
 
   Fish() {
-    location = new PVector(random(width), random(height));
-    velocity = new PVector(random(-2, 2), random(-2, 2));
+    location = new PVector(random(-5, 0), random(50, 100));
+    velocity = new PVector(random(1, 2), random(-1, 1));
   }
 
   void update() {
     location.add(velocity);
+    
   }
   void display() {
     image(img, location.x, location.y);
@@ -31,10 +32,15 @@ void setup() {
   redFish = new Fish();
 }
 
-void draw() {
-  //image(img, 0, 0);
+void drawBG() {
   background(255);
+  noStroke();
+  fill(80, 80, 200);
+}
+
+void draw() {
+  drawBG();
+  rect(0, 70, width, height);
   redFish.update();
   redFish.display();
-  //image(img, 0, height/2, img.width/2, img.height/2);
 }
