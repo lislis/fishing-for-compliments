@@ -1,3 +1,36 @@
+class Game {
+  int state;
+  Game() {
+    state = 0;
+  }
+
+  void display() {
+    drawBG();
+    drawStats();
+    drawWater();
+  }
+
+
+  void drawBG() {
+    background(255);
+    noStroke();
+  }
+
+  void drawStats() {
+    fill(10);
+    textSize(20);
+    text("Compliments fished: "+ score, 10, 20);
+  }
+
+  void drawWater() {
+    fill(80, 80, 200);
+    rect(0, waterTop, width, height);
+  }
+}
+
+
+Game game;
+
 int waterTop = 70;
 int score = 0;
 Rod rod;
@@ -8,6 +41,7 @@ Compliment[] compliments = new Compliment[5];
 
 
 void setup() {
+  game = new Game();
   size(640, 360);
   for (int i = 0; i < fishImg.length; i++) {
     fishImg[i] = loadImage("Fish"+ i +".png");
@@ -19,27 +53,10 @@ void setup() {
   rod = new Rod();
 }
 
-void drawBG() {
-  background(255);
-  noStroke();
-}
-
-void drawStats() {
-  fill(10);
-  textSize(20);
-  text("Compliments fished: "+ score, 10, 20);
-}
-
-void drawWater() {
-  fill(80, 80, 200);
-  rect(0, waterTop, width, height);
-}
 
 void draw() {
-  drawBG();
-  drawStats();
-  drawWater();
-
+  game.display();
+  
   for (int i = 0; i < fish.length; i++) {
     if (fish[i].collided == false) {
       fish[i].update();
