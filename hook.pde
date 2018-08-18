@@ -3,6 +3,9 @@ class Hook {
   PVector velocity;
   PVector acceleration;
   int topspeed;
+  float mass;
+
+  PVector wind;
 
   int w = 20;
   int h = 20;
@@ -13,29 +16,45 @@ class Hook {
     velocity = new PVector(0, 0);
     acceleration = new PVector(0, 0);
     topspeed = 3;
+    mass = 3;
+
+    wind = new PVector(0, 0);
   }
 
   void update() {
+    float c = 0.01;
+    PVector friction = velocity;
+    friction.mult(-1);
+    friction.normalize();
+    friction.mult(c);
+
+    applyForce(wind);
+    applyForce(friction);
     velocity.add(acceleration);
     velocity.limit(topspeed);
     location.add(velocity);
-    velocity.x = 0;
+    
+    acceleration.mult(0);
 
     checkEdges();
     checkLine();
   }
-  void updateAccX(float x) {
-    acceleration.x = x;
+
+  void applyForce(PVector force) {
+    PVector f = PVector.div(force, mass);
+    acceleration.add(f);
   }
-  void updateAccY(float y) {
-    acceleration.y = y;
+  void updateWindX(float x) {
+    wind.x = x;
+  }
+  void updateWindY(float y) {
+    wind.y = y;
   }
   void updateLine(float x) {
     line += x;
     if (line >= height) {
       line = height;
     }
-    acceleration.y = 0;
   }
 
   void checkLine() {

@@ -17,7 +17,7 @@ class Fish {
     xoff = random(1, 10000);
     yoff = random(1, 10000);
     sprite = round(random(4));
-    topspeed = round(random(1, 3));
+    topspeed = round(random(1, 2));
     collided = false;
   }
 
@@ -72,13 +72,14 @@ class Fish {
   }
 
   boolean collidesWith(Hook hook) {
-    if (location.x + w < hook.location.x || 
-      hook.location.x + hook.w < location.x || 
-      location.y + h < hook.location.y || 
-      hook.location.y + hook.h < location.y) {
+    if (location.x + (w/2) + w < hook.location.x || 
+      hook.location.x + hook.w < location.x + (w/2) || 
+      location.y + 3 + h < hook.location.y || 
+      hook.location.y + hook.h < location.y + 3) {
       collided = false;
     } else {
       collided = true;
+      score ++;
     }
     return collided;
   }

@@ -27,21 +27,21 @@ class Rod {
 
   void moveLeft() {
     location.x -= 5;
-    hook.updateAccX(-1);
+    hook.updateWindX(-3);
   }
 
   void moveRight() {
     location.x += 5;
-    hook.updateAccX(1);
+    hook.updateWindX(3);
   }
 
   void moveUp() {
-    hook.updateLine(-1.5);
+    hook.updateLine(-3.5);
   }
 
   void moveDown() {
     hook.updateLine(10);
-    hook.updateAccY(0.01);
+    hook.updateWindY(3);
   }
   
   void checkEdges() {
