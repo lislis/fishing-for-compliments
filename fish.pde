@@ -29,6 +29,7 @@ class Fish {
     velocity.add(acceleration);
     velocity.limit(topspeed);
     location.add(velocity);
+    checkEdges();
     xoff += 0.01;
     yoff += 0.01;
   }
@@ -42,12 +43,12 @@ class Fish {
     rect(location.x + (w/2), location.y + 3, w, h);
     noStroke();
     if (velocity.x >= 0) {
-      image(fishImg[sprite], location.x, location.y);
+      image(game.fishImg[sprite], location.x, location.y);
     } else {
       pushMatrix();
       translate(w * 2, 0);
       scale(-1, 1);
-      image(fishImg[sprite], -location.x, location.y);
+      image(game.fishImg[sprite], -location.x, location.y);
       popMatrix();
     }
   }
@@ -79,7 +80,6 @@ class Fish {
       collided = false;
     } else {
       collided = true;
-      score ++;
     }
     return collided;
   }
