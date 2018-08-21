@@ -5,6 +5,7 @@ class Game {
   Fish[] fish;
   Compliment[] compliments; 
   Rod rod;
+  Joystick joystick;
 
   Game(int amountFish) {
     state = 0;
@@ -12,6 +13,7 @@ class Game {
     compliments = new Compliment[amountFish];   
     spawnFish();
     rod = new Rod();
+    joystick = new Joystick();
   }
 
   void display() {
@@ -27,6 +29,7 @@ class Game {
   void endscreen() {
     drawBG();
     drawWater();
+    waitForStateSwitch();
   }
 
   void titlescreen() {
@@ -40,6 +43,7 @@ class Game {
     text("Move joystick left and rigth to move the digital rod.", 20, 130, 350, 100);
     text("Move the physical rod up and down in liquid to sink and pull up the hook.", 20, 190, 350, 100);
     text("Move joystick up to start.", 20, 290, 350, 100);
+    waitForStateSwitch();
   }
 
   void gameloop() {
@@ -47,10 +51,29 @@ class Game {
     drawStats();
     drawWater();
 
+    updateMovement();
     rod.update();
     rod.display();
     updateFish();
     updateScore();
+  }
+  
+  void waitForStateSwitch() {
+    if (joystick.clicked == true) {
+      if (state == 0) {
+        state = 1;
+      } else if (state == 2) {
+        state = 0;
+      }
+    }
+  }
+
+  void updateMovement() {
+    if (joystick.right == true) {
+      rod.moveRight();
+    } else if (joystick.left == true) {
+      rod.moveLeft();
+    }
   }
 
   void updateScore() {
