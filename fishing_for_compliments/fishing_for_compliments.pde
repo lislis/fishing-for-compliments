@@ -3,7 +3,7 @@ import processing.serial.*;
 Serial port;
 
 int waterTop = 70;
-int amountFish  = 2;
+int amountFish  = 14;
 int fontBodySize = 20;
 int fontHeadlineSize = 42;
 PFont font;

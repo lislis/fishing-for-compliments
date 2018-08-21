@@ -84,8 +84,9 @@ class Hook {
 
   void display() {
     noStroke();
-    fill(20, 300, 30);
-    rect(location.x, location.y, w, h);
+    fill(200, 50, 50);
+    ellipse(location.x + (w /2), location.y + (h / 2), w, h);
+    //rect(location.x, location.y, w, h);
     noFill();
   }
 }

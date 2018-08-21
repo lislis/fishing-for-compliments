@@ -8,7 +8,6 @@ class SerialHelper {
   }
 
   void update(Joystick stick) {
-    println("Hey");
     if ( port.available() > 0) {
       serialValue = port.readStringUntil('\n');
       direction = split(serialValue, ',');
