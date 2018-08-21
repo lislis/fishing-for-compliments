@@ -4,8 +4,14 @@ class Compliment {
   PVector acceleration;
   String text;
   boolean outside;
-  String[] pool = {"Nice shirt!", "You make delicious fried rice!", "You're a great friend!"};
-  
+  String[] pool = {
+    "Nice shirt!", 
+    "You make delicious fried rice!", 
+    "You're a great friend!", 
+    "Your point is valid!",
+    "People appreciate your contributions!"
+  };
+
   Compliment() {
     location = new PVector(0, 0);
     velocity = new PVector(0, 0);
@@ -13,24 +19,25 @@ class Compliment {
     text = pool[floor(random(pool.length))];
     outside = false;
   }
-  
+
   void syncLoc(PVector loc) {
     location = loc;
   }
-  
+
   void display() {
-      textSize(26);
-      fill(255);
-      text(text, location.x, location.y, 200, 400);
+    textSize(fontBodySize * 1.2);
+    fill(255);
+    textAlign(CENTER);
+    text(text, location.x, location.y, 200, 400);
   }
-  
+
   void update() {
     acceleration = new PVector(0, 0.01);
     velocity.add(acceleration);
     location.add(velocity);
     checkForEnd();
   }
-  
+
   void checkForEnd() {
     if (location.y > height) {
       outside = true;
