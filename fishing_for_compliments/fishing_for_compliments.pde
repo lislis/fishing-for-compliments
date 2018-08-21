@@ -3,7 +3,7 @@ import processing.serial.*;
 Serial port;
 
 int waterTop = 70;
-int amountFish  = 1;
+int amountFish  = 2;
 int fontBodySize = 20;
 int fontHeadlineSize = 42;
 PFont font;
@@ -11,6 +11,8 @@ Game game;
 SerialHelper sh;
 
 void setup() {
+  //fullScreen();
+  background(0);
   size(640, 360);
   font = createFont("Acme-Regular.ttf", fontBodySize);
   textFont(font);
@@ -26,12 +28,14 @@ void draw() {
 
 void keyPressed() {
   if (key == CODED) {
+    /*
     if (game.state == 0 && keyCode == UP) {
       game.state = 1;
     }
     if (game.state == 2 && keyCode == UP) {
       game.state = 0;
     }
+    */
 
     if (game.state == 1) {
       if (keyCode == LEFT) {

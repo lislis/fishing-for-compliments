@@ -10,7 +10,8 @@ class Game {
   Game(int amountFish) {
     state = 0;
     fish = new Fish[amountFish];
-    compliments = new Compliment[amountFish];   
+    compliments = new Compliment[amountFish];
+    loadFishImages();
     spawnFish();
     rod = new Rod();
     joystick = new Joystick();
@@ -29,12 +30,21 @@ class Game {
   void endscreen() {
     drawBG();
     drawWater();
+    textAlign(LEFT);
+    textSize(fontHeadlineSize);
+    fill(51, 63, 66);
+    text("You've fished all compliments", 20, 90);
+    textSize(fontBodySize);
+    textLeading(fontBodySize * 1.5);
+    text("I hope you'll have a nice day!", 20, 130, 350, 100);
+    text("Press down joystick to return to title screen.", 20, 290, 350, 100);
     waitForStateSwitch();
   }
 
   void titlescreen() {
     drawBG();
     drawWater();
+    textAlign(LEFT);
     textSize(fontHeadlineSize);
     fill(51, 63, 66);
     text("Fishing for Compliments", 20, 90);
@@ -42,7 +52,7 @@ class Game {
     textLeading(fontBodySize * 1.5);
     text("Move joystick left and rigth to move the digital rod.", 20, 130, 350, 100);
     text("Move the physical rod up and down in liquid to sink and pull up the hook.", 20, 190, 350, 100);
-    text("Move joystick up to start.", 20, 290, 350, 100);
+    text("Press down joystick to start.", 20, 290, 350, 100);
     waitForStateSwitch();
   }
 
@@ -57,15 +67,25 @@ class Game {
     updateFish();
     updateScore();
   }
-  
+
   void waitForStateSwitch() {
     if (joystick.clicked == true) {
       if (state == 0) {
         state = 1;
       } else if (state == 2) {
         state = 0;
+        reset();
       }
+      delay(100);
     }
+  }
+
+  void reset() {
+    fish = new Fish[amountFish];
+    compliments = new Compliment[amountFish];
+    spawnFish();
+    rod = new Rod();
+    score = 0;
   }
 
   void updateMovement() {
@@ -88,10 +108,13 @@ class Game {
     }
   }
 
-  void spawnFish() {
+  void loadFishImages() {
     for (int i = 0; i < fishImg.length; i++) {
       fishImg[i] = loadImage("Fish"+ i +".png");
     }
+  }
+
+  void spawnFish() {
     for (int i = 0; i < fish.length; i++) {
       fish[i] = new Fish();
       compliments[i] = new Compliment();
