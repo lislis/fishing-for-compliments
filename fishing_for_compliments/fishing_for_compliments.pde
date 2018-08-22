@@ -2,6 +2,7 @@ import processing.serial.*;
 
 Serial port;
 
+boolean controller = false;
 int waterTop = 70;
 int amountFish  = 14;
 int fontBodySize = 20;
@@ -17,25 +18,29 @@ void setup() {
   font = createFont("Acme-Regular.ttf", fontBodySize);
   textFont(font);
   game = new Game(amountFish);
-  port = new Serial(this, Serial.list()[0], 9600);
-  sh = new SerialHelper(port);
+  if (controller) { 
+    port = new Serial(this, Serial.list()[0], 9600);
+    sh = new SerialHelper(port);
+  }
 }
 
 void draw() {
   game.display();
-  sh.update(game.joystick);
+  if (controller) {
+    sh.update(game.joystick);
+  }
 }
 
 void keyPressed() {
   if (key == CODED) {
-    /*
+    
     if (game.state == 0 && keyCode == UP) {
       game.state = 1;
     }
     if (game.state == 2 && keyCode == UP) {
       game.state = 0;
     }
-    */
+    
 
     if (game.state == 1) {
       if (keyCode == LEFT) {

@@ -16,7 +16,7 @@ class Rod {
   }
 
   void display() {
-    fill(50, 50, 50);
+    fill(51, 63, 66);
     rect(location.x, location.y, w, h);
     noFill();
     stroke(50);

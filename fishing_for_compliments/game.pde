@@ -7,6 +7,9 @@ class Game {
   Rod rod;
   Joystick joystick;
 
+  float xoff = 1000;
+  float yoff = 100000;
+
   Game(int amountFish) {
     state = 0;
     fish = new Fish[amountFish];
@@ -25,6 +28,8 @@ class Game {
     } else if (state == 2) {
       endscreen();
     }
+    xoff += 0.01;
+    yoff += 0.01;
   }
 
   void endscreen() {
@@ -150,7 +155,35 @@ class Game {
   }
 
   void drawWater() {
+
+
+
+    noiseDetail(2);
+    loadPixels();
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        float bright = map(noise(x, y), 0, 1, 0, 255); 
+        pixels[x+y*width] = color(bright);
+      }
+    }
+    updatePixels();
+
+
+
     fill(65, 188, 216);
     rect(0, waterTop, width, height);
+
+    noiseDetail(4);
+    beginShape();
+    vertex(0, waterTop + 10);
+    vertex(0, waterTop);
+    for (int i = 0; i <= width; i += 10) {
+      float y = noise(xoff, yoff, i) * 20;
+      curveVertex(i, y + waterTop - 15);
+    }
+    vertex(width, waterTop);
+    vertex(width, waterTop );
+
+    endShape(CLOSE);
   }
 }

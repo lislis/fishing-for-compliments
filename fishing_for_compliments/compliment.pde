@@ -9,8 +9,9 @@ class Compliment {
     "You make delicious fried rice!", 
     "You're a great friend!", 
     "Your point is valid!",
-    "People appreciate your contributions!"
+    "People appreciate your contributions!",
   };
+  int white;
 
   Compliment() {
     location = new PVector(0, 0);
@@ -26,7 +27,7 @@ class Compliment {
 
   void display() {
     textSize(fontBodySize * 1.2);
-    fill(255);
+    fill(white);
     textAlign(CENTER);
     text(text, location.x, location.y, 200, 400);
   }
@@ -35,6 +36,7 @@ class Compliment {
     acceleration = new PVector(0, 0.01);
     velocity.add(acceleration);
     location.add(velocity);
+    white = (int) map(location.y, 0, height, 255, 220);
     checkForEnd();
   }
 

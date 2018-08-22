@@ -83,9 +83,13 @@ class Hook {
   }
 
   void display() {
+    float x = location.x + (w /2);
+    float y = location.y + (h / 2);
     noStroke();
     fill(200, 50, 50);
-    ellipse(location.x + (w /2), location.y + (h / 2), w, h);
+    ellipse(x, y, w, h);
+    fill(230, 150, 150);
+    arc(x, y, w, h, 0, PI, CHORD);
     //rect(location.x, location.y, w, h);
     noFill();
   }
