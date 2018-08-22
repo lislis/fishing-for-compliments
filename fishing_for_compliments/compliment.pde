@@ -4,13 +4,7 @@ class Compliment {
   PVector acceleration;
   String text;
   boolean outside;
-  String[] pool = {
-    "Nice shirt!", 
-    "You make delicious fried rice!", 
-    "You're a great friend!", 
-    "Your point is valid!",
-    "People appreciate your contributions!",
-  };
+  String[] pool = loadStrings("compliments.txt");
   int white;
 
   Compliment() {

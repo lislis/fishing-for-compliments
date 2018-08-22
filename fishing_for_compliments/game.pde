@@ -63,8 +63,9 @@ class Game {
 
   void gameloop() {
     drawBG();
-    drawStats();
+    
     drawWater();
+    drawStats();
 
     updateMovement();
     rod.update();
@@ -156,26 +157,20 @@ class Game {
 
   void drawWater() {
 
-
-
-    noiseDetail(2);
     loadPixels();
-    for (int x = 0; x < width; x++) {
-      for (int y = 0; y < height; y++) {
-        float bright = map(noise(x, y), 0, 1, 0, 255); 
+    for (int x = 0; x < width; x+=3) {
+      for (int y = 0; y < height; y+=3) {
+        float bright = map(noise(x, y, xoff), 0, 1, 100, 255); 
         pixels[x+y*width] = color(bright);
       }
     }
     updatePixels();
 
-
-
-    fill(65, 188, 216);
+    fill(65, 188, 216, 120);
     rect(0, waterTop, width, height);
 
     noiseDetail(4);
     beginShape();
-    vertex(0, waterTop + 10);
     vertex(0, waterTop);
     for (int i = 0; i <= width; i += 10) {
       float y = noise(xoff, yoff, i) * 20;
@@ -183,7 +178,6 @@ class Game {
     }
     vertex(width, waterTop);
     vertex(width, waterTop );
-
     endShape(CLOSE);
   }
 }

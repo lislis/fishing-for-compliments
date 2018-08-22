@@ -40,7 +40,7 @@ class Fish {
     } else {
       noFill();
     }
-    rect(location.x + (w/2), location.y + 3, w, h);
+   // rect(location.x + (w/2), location.y + 3, w, h);
     noStroke();
     if (velocity.x >= 0) {
       image(game.fishImg[sprite], location.x, location.y);
