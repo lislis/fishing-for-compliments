@@ -18,6 +18,7 @@ class Game {
     spawnFish();
     rod = new Rod();
     joystick = new Joystick();
+    waves.loop();
   }
 
   void display() {
