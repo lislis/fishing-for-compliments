@@ -3,12 +3,13 @@ import processing.serial.*;
 
 SoundFile waves;
 SoundFile jazzloop;
+SoundFile collect;
+SoundFile menu;
 Serial port;
-
 
 boolean controller = false;
 int waterTop = 70;
-int amountFish  = 2;
+int amountFish  = 4;
 int fontBodySize = 20;
 int fontHeadlineSize = 42;
 PFont font;
@@ -17,12 +18,13 @@ SerialHelper sh;
 
 void setup() {
   //fullScreen();
-  background(0);
   size(640, 360);
   font = createFont("Acme-Regular.ttf", fontBodySize);
   textFont(font);
   waves = new SoundFile(this, "ambient-waves.mp3");
   jazzloop = new SoundFile(this, "jazz-loop.mp3");
+  collect = new SoundFile(this, "boom.mp3");
+  menu = new SoundFile(this, "blip.wav");
 
   game = new Game(amountFish);
   if (controller) { 
@@ -43,15 +45,17 @@ void keyPressed() {
     
     if (game.state == 0 && keyCode == UP) {
       game.state = 1;
-      delay(100);
+      menu.play();
+      delay(200);
       jazzloop.loop();
     }
     if (game.state == 2 && keyCode == UP) {
       game.state = 0;
-      delay(100);
+      game.reset();
+      menu.play();
+      delay(200);
       jazzloop.stop();
     }
-    
 
     if (game.state == 1) {
       if (keyCode == LEFT) {

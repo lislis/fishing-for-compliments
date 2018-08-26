@@ -80,6 +80,7 @@ class Fish {
       collided = false;
     } else {
       collided = true;
+      collect.play();
     }
     return collided;
   }
