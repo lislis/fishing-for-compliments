@@ -51,7 +51,7 @@ class Game {
     text("Fishing for Compliments", 20, 90);
     textSize(fontBodySize);
     textLeading(fontBodySize * 1.5);
-    text("Move joystick left and rigth to move the digital rod.", 20, 130, 350, 100);
+    text("Move joystick left and rigtht to move the digital rod.", 20, 130, 350, 100);
     text("Move the physical rod up and down in liquid to sink and pull up the hook.", 20, 190, 350, 100);
     text("Press down joystick to start.", 20, 290, 350, 100);
     waitForStateSwitch();
@@ -98,7 +98,7 @@ class Game {
 
   void updateScore() {
     if (score == amountFish -1) {
-      // play win music    
+      // play win music    `
     }
     if (score == amountFish) {
       game.state = 2;
@@ -136,7 +136,6 @@ class Game {
       }
     }
     score = tmpScore;
-    println(score);
   }
 
   void drawStats() {
