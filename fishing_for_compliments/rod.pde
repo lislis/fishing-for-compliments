@@ -4,10 +4,12 @@ class Rod {
 
   float w = 10; 
   float h = 30;
+  int waterLevel; 
 
   Rod() {
     location = new PVector(width / 2, 0);
     hook = new Hook(location.x - 5, waterTop - 10);
+    waterLevel = 0;
   }
 
   void update() {
@@ -25,6 +27,12 @@ class Rod {
     hook.display();
   }
 
+  void handle(String level) {
+    waterLevel = int(level);
+    println("rod: "+ waterLevel);
+    hook.line = waterLevel;
+  }
+
   void moveLeft() {
     location.x -= 5;
     hook.updateWindX(-3);
@@ -35,15 +43,17 @@ class Rod {
     hook.updateWindX(3);
   }
 
-  void moveUp() {
-    hook.updateLine(-3.5);
-  }
-
-  void moveDown() {
-    hook.updateLine(10);
-    hook.updateWindY(3);
-  }
   
+  void moveUp() {
+   hook.updateLine(-3.5);
+   }
+   
+   void moveDown() {
+   hook.updateLine(10);
+   hook.updateWindY(3);
+   }
+   
+
   void checkEdges() {
     if (location.x >= width - w) {
       location.x = width - w;

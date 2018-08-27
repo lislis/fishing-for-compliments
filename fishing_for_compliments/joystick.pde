@@ -19,7 +19,7 @@ class Joystick {
 
       if (int(dir[1]) > 1000) {
         left = true;
-      } else if (int(dir[1]) < 2) {
+      } else if (int(dir[1]) < 20) {
         right = true;
       } else {
         left = false;

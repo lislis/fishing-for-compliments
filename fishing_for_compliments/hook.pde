@@ -27,7 +27,7 @@ class Hook {
     friction.mult(-1);
     friction.normalize();
     friction.mult(c);
-
+    
     applyForce(wind);
     applyForce(friction);
     velocity.add(acceleration);
@@ -52,6 +52,14 @@ class Hook {
   }
   void updateLine(float x) {
     line += x;
+    if (line >= height) {
+      line = height;
+    }
+  }
+  
+  void updateLineSensor(int value) {
+    println(line);
+    line = map(value, 0, 100, 80, height);
     if (line >= height) {
       line = height;
     }

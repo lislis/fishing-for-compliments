@@ -71,9 +71,13 @@ class Game {
     if (joystick.clicked == true) {
       if (state == 0) {
         state = 1;
+        menu.play();
+        jazzloop.play();
       } else if (state == 2) {
         state = 0;
         reset();
+        menu.play();
+        jazzloop.stop();
       }
       menu.play();
       delay(100);

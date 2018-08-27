@@ -7,9 +7,9 @@ SoundFile collect;
 SoundFile menu;
 Serial port;
 
-boolean controller = false;
+boolean controller = true;
 int waterTop = 70;
-int amountFish  = 4;
+int amountFish  = 20;
 int fontBodySize = 20;
 int fontHeadlineSize = 42;
 PFont font;
@@ -18,7 +18,7 @@ SerialHelper sh;
 
 void setup() {
   //fullScreen();
-  size(640, 360);
+  size(640, 400);
   font = createFont("Acme-Regular.ttf", fontBodySize);
   textFont(font);
   waves = new SoundFile(this, "ambient-waves.mp3");
@@ -28,6 +28,7 @@ void setup() {
 
   game = new Game(amountFish);
   if (controller) { 
+    println("Hello controller");
     port = new Serial(this, Serial.list()[0], 9600);
     sh = new SerialHelper(port);
   }
@@ -36,25 +37,28 @@ void setup() {
 void draw() {
   game.display();
   if (controller) {
-    sh.update(game.joystick);
+    sh.update(game.joystick, game.rod);
   }
 }
 
 void keyPressed() {
   if (key == CODED) {
-    
-    if (game.state == 0 && keyCode == UP) {
-      game.state = 1;
-      menu.play();
-      delay(200);
-      jazzloop.loop();
-    }
-    if (game.state == 2 && keyCode == UP) {
-      game.state = 0;
-      game.reset();
-      menu.play();
-      delay(200);
-      jazzloop.stop();
+    if (!controller) {
+
+      if (game.state == 0 && keyCode == UP) {
+        game.state = 1;
+        menu.play();
+        delay(200);
+        jazzloop.loop();
+      }
+
+      if (game.state == 2 && keyCode == UP) {
+        game.state = 0;
+        game.reset();
+        menu.play();
+        delay(200);
+        jazzloop.stop();
+      }
     }
 
     if (game.state == 1) {
@@ -63,6 +67,7 @@ void keyPressed() {
       } else if (keyCode == RIGHT) {
         game.rod.moveRight();
       }
+
       if (keyCode == UP) {
         game.rod.moveUp();
       } else if (keyCode == DOWN) {
