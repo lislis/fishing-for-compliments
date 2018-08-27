@@ -6,9 +6,7 @@ class Game {
   Compliment[] compliments; 
   Rod rod;
   Joystick joystick;
-
-  float xoff = 1000;
-  float yoff = 100000;
+  Water water;
 
   Game(int amountFish) {
     state = 0;
@@ -18,10 +16,12 @@ class Game {
     spawnFish();
     rod = new Rod();
     joystick = new Joystick();
+    water = new Water();
     waves.loop();
   }
 
   void display() {
+    water.display();
     if (state == 0) {
       titlescreen();
     } else if (state == 1) {
@@ -29,13 +29,10 @@ class Game {
     } else if (state == 2) {
       endscreen();
     }
-    xoff += 0.01;
-    yoff += 0.01;
+    water.update();
   }
 
   void endscreen() {
-    drawBG();
-    drawWater();
     textAlign(LEFT);
     textSize(fontHeadlineSize);
     fill(51, 63, 66);
@@ -48,24 +45,19 @@ class Game {
   }
 
   void titlescreen() {
-    drawBG();
-    drawWater();
     textAlign(LEFT);
     textSize(fontHeadlineSize);
     fill(51, 63, 66);
     text("Fishing for Compliments", 20, 90);
     textSize(fontBodySize);
     textLeading(fontBodySize * 1.5);
-    text("Move joystick left and rigth to move the digital rod.", 20, 130, 350, 100);
+    text("Move joystick left and rigtht to move the digital rod.", 20, 130, 350, 100);
     text("Move the physical rod up and down in liquid to sink and pull up the hook.", 20, 190, 350, 100);
     text("Press down joystick to start.", 20, 290, 350, 100);
     waitForStateSwitch();
   }
 
   void gameloop() {
-    drawBG();
-    
-    drawWater();
     drawStats();
 
     updateMovement();
@@ -83,16 +75,17 @@ class Game {
         state = 0;
         reset();
       }
+      menu.play();
       delay(100);
     }
   }
 
   void reset() {
+    score = 0;
     fish = new Fish[amountFish];
     compliments = new Compliment[amountFish];
     spawnFish();
     rod = new Rod();
-    score = 0;
   }
 
   void updateMovement() {
@@ -104,11 +97,8 @@ class Game {
   }
 
   void updateScore() {
-    score = 0;
-    for (int i = 0; i < fish.length; i++) {
-      if (fish[i].collided == true) {
-        score ++;
-      }
+    if (score == amountFish -1) {
+      // play win music    `
     }
     if (score == amountFish) {
       game.state = 2;
@@ -122,13 +112,14 @@ class Game {
   }
 
   void spawnFish() {
-    for (int i = 0; i < fish.length; i++) {
+    for (int i = 0; i < amountFish; i++) {
       fish[i] = new Fish();
       compliments[i] = new Compliment();
     }
   }
 
   void updateFish() {
+    int tmpScore = 0;
     for (int i = 0; i < fish.length; i++) {
       if (fish[i].collided == false) {
         fish[i].update();
@@ -139,14 +130,12 @@ class Game {
         if (compliments[i].outside == false) {
           compliments[i].update();
           compliments[i].display();
+        } else {
+          tmpScore ++;
         }
       }
     }
-  }
-
-  void drawBG() {
-    background(174, 221, 232);
-    noStroke();
+    score = tmpScore;
   }
 
   void drawStats() {
@@ -154,31 +143,5 @@ class Game {
     fill(51, 63, 66);
     textSize(fontBodySize);
     text("Compliments fished: "+ score, 10, 30);
-  }
-
-  void drawWater() {
-
-    loadPixels();
-    for (int x = 0; x < width; x+=3) {
-      for (int y = 0; y < height; y+=3) {
-        float bright = map(noise(x, y, xoff), 0, 1, 100, 255); 
-        pixels[x+y*width] = color(bright);
-      }
-    }
-    updatePixels();
-
-    fill(65, 188, 216, 120);
-    rect(0, waterTop, width, height);
-
-    noiseDetail(4);
-    beginShape();
-    vertex(0, waterTop);
-    for (int i = 0; i <= width; i += 10) {
-      float y = noise(xoff, yoff, i) * 20;
-      curveVertex(i, y + waterTop - 15);
-    }
-    vertex(width, waterTop);
-    vertex(width, waterTop );
-    endShape(CLOSE);
   }
 }

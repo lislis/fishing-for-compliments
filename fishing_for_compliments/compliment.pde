@@ -5,7 +5,7 @@ class Compliment {
   String text;
   boolean outside;
   String[] pool = loadStrings("compliments.txt");
-  int white;
+  int alpha;
 
   Compliment() {
     location = new PVector(0, 0);
@@ -21,7 +21,7 @@ class Compliment {
 
   void display() {
     textSize(fontBodySize * 1.2);
-    fill(white);
+    fill(250, alpha);
     textAlign(CENTER);
     text(text, location.x, location.y, 200, 400);
   }
@@ -30,7 +30,7 @@ class Compliment {
     acceleration = new PVector(0, 0.01);
     velocity.add(acceleration);
     location.add(velocity);
-    white = (int) map(location.y, 0, height, 255, 220);
+    alpha = (int) map(location.y, waterTop, height, 255, 0);
     checkForEnd();
   }
 
