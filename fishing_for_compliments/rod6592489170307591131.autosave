@@ -4,10 +4,12 @@ class Rod {
 
   float w = 10; 
   float h = 30;
+  int waterLevel; 
 
   Rod() {
     location = new PVector(width / 2, 0);
     hook = new Hook(location.x - 5, waterTop - 10);
+    waterLevel = 0;
   }
 
   void update() {
@@ -23,6 +25,12 @@ class Rod {
     bezier(location.x + (w/2), h, location.x, h + 30, hook.location.x, hook.location.y - 40, hook.location.x + (hook.w / 2), hook.location.y + (hook.h / 2));
     noStroke();
     hook.display();
+  }
+
+  void handle(String level) {
+    waterLevel = int(level);
+    println("rod: "+ waterLevel);
+    hook.line = waterLevel;
   }
 
   void moveLeft() {

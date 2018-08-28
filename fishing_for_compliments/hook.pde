@@ -17,7 +17,6 @@ class Hook {
     acceleration = new PVector(0, 0);
     topspeed = 3;
     mass = 3;
-
     wind = new PVector(0, 0);
   }
 
@@ -27,13 +26,13 @@ class Hook {
     friction.mult(-1);
     friction.normalize();
     friction.mult(c);
-    
+
     applyForce(wind);
     applyForce(friction);
     velocity.add(acceleration);
     velocity.limit(topspeed);
     location.add(velocity);
-    
+
     acceleration.mult(0);
 
     checkEdges();
@@ -52,14 +51,6 @@ class Hook {
   }
   void updateLine(float x) {
     line += x;
-    if (line >= height) {
-      line = height;
-    }
-  }
-  
-  void updateLineSensor(int value) {
-    println(line);
-    line = map(value, 0, 100, 80, height);
     if (line >= height) {
       line = height;
     }

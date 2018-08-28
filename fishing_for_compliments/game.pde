@@ -5,7 +5,7 @@ class Game {
   Fish[] fish;
   Compliment[] compliments; 
   Rod rod;
-  Joystick joystick;
+  Inputs inputs;
   Water water;
 
   Game(int amountFish) {
@@ -15,7 +15,7 @@ class Game {
     loadFishImages();
     spawnFish();
     rod = new Rod();
-    joystick = new Joystick();
+    inputs = new Inputs();
     water = new Water();
     waves.loop();
   }
@@ -23,6 +23,11 @@ class Game {
   void display() {
     water.display();
     if (state == 0) {
+      if (millis() < 20000) {
+        inputs.calibrate = true;
+      } else {
+        inputs.calibrate = false;
+      }
       titlescreen();
     } else if (state == 1) {
       gameloop();
@@ -40,6 +45,7 @@ class Game {
     textSize(fontBodySize);
     textLeading(fontBodySize * 1.5);
     text("I hope you'll have a nice day!", 20, 130, 350, 100);
+    text("Contribute compliments at https://github.com/lislis/fishing_for_compliments", 20, 190, 400, 100);
     text("Press down joystick to return to title screen.", 20, 290, 350, 100);
     waitForStateSwitch();
   }
@@ -51,9 +57,16 @@ class Game {
     text("Fishing for Compliments", 20, 90);
     textSize(fontBodySize);
     textLeading(fontBodySize * 1.5);
-    text("Move joystick left and rigtht to move the digital rod.", 20, 130, 350, 100);
-    text("Move the physical rod up and down in liquid to sink and pull up the hook.", 20, 190, 350, 100);
-    text("Press down joystick to start.", 20, 290, 350, 100);
+    if (inputs.calibrate) {
+      text("Calibrating water level sensor.", 20, 130, 350, 100);
+      text("Move the sensor up and down in to properly set minimun and maximum values.", 20, 190, 350, 100);
+      text("This takes about 5 seconds.", 20, 290, 350, 100);
+    } else {
+      text("Move joystick left and rigtht to move the digital rod.", 20, 130, 350, 100);
+      text("Move the physical rod up and down in liquid to sink and pull up the hook.", 20, 190, 350, 100);
+      text("Press down joystick to start.", 20, 290, 350, 100);
+    }
+
     waitForStateSwitch();
   }
 
@@ -68,18 +81,12 @@ class Game {
   }
 
   void waitForStateSwitch() {
-    if (joystick.clicked == true) {
+    if (inputs.clicked == true) {
       if (state == 0) {
-        state = 1;
-        menu.play();
-        jazzloop.play();
+        setGameloopState();
       } else if (state == 2) {
-        state = 0;
-        reset();
-        menu.play();
-        jazzloop.stop();
+        setTitlescreenState();
       }
-      menu.play();
       delay(100);
     }
   }
@@ -93,18 +100,21 @@ class Game {
   }
 
   void updateMovement() {
-    if (joystick.right == true) {
+    if (inputs.right == true) {
       rod.moveRight();
-    } else if (joystick.left == true) {
+    } else if (inputs.left == true) {
       rod.moveLeft();
+    }
+    if (inputs.up == true) {
+      rod.moveUp();
+    } else if (inputs.down == true) {
+      rod.moveDown();
     }
   }
 
   void updateScore() {
-    if (score == amountFish -1) {
-      // play win music    `
-    }
     if (score == amountFish) {
+      win.play();
       game.state = 2;
     }
   }

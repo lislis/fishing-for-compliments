@@ -7,15 +7,20 @@ class SerialHelper {
     port = p;
   }
 
-  void update(Joystick stick, Rod rod) {
+  void update(Inputs inputs) {
     if ( port.available() > 0) {
-      serialValue = port.readStringUntil('\n');
-      direction = split(serialValue, ',');
-      if (direction != null) {
-        stick.handle(direction);
-        if (direction.length == 4) {
-          println("SerialHelper: "+ direction[3]);
-          rod.handle(direction[3]);
+      serialValue = trim(port.readStringUntil('\n'));
+      if (serialValue != null) {
+        direction = split(serialValue, ',');
+        //println(direction);
+        if (direction.length == 6) {
+          // 0 clicked
+          // 1 x axis
+          // 2 y axis
+          // 3 sensor value
+          // 4 sensor min
+          // 5 sensor max
+          inputs.handle(direction);
         }
       }
     }

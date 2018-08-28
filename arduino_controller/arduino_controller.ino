@@ -7,7 +7,7 @@
 //
 // Have a 3 Pin water level sensor
 // Connect 5V and GND
-// Sensor goes to A3
+// Sensor goes to A2
 //
 // Then we basically just write to Serial
 // for Processing to pick it up
@@ -52,7 +52,10 @@ void loop() {
   Serial.print(",");
   Serial.print(analogRead(pinY));
   Serial.print(",");
-  sensorValue = analogRead(pinSensor);
-  Serial.println(map(sensorValue, sensorMin, sensorMax, 0, 255));
-  delay(50);
+  Serial.print(analogRead(pinSensor));
+  Serial.print(",");
+  Serial.print(sensorMin);
+  Serial.print(",");
+  Serial.println(sensorMax);
+  delay(10);
 }
