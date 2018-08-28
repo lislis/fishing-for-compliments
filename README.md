@@ -61,3 +61,7 @@ Open assets are awesome! Big thanks to the fine folk who contribute their works 
 - [Small boom](https://freesound.org/people/ProjectsU012/sounds/341626/) by [ProjectsU012](https://freesound.org/people/ProjectsU012/) under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
 
 - [Horn Stabs Entrance](https://freesound.org/people/benjaminharveydesign/sounds/350433/) by [benjaminharveydesign](https://freesound.org/people/benjaminharveydesign/) under [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+### Font
+
+- [Acme](https://www.fontsquirrel.com/fonts/acme) by [Huerta Tipográfica](https://www.fontsquirrel.com/fonts/list/foundry/huerta-tipogrfica) under [SIL Open Font License v1.10](https://www.fontsquirrel.com/fonts/acme?q%5Bterm%5D=acme&q%5Bsearch_check%5D=Y)
