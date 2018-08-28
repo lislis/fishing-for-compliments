@@ -12,7 +12,7 @@ boolean controller = true;
 
 int waterTop = 70;
 int amountFish  = 20;
-int fontBodySize = 20;
+int fontBodySize = 20;  
 int fontHeadlineSize = 42;
 PFont font;
 Game game;
