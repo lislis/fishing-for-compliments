@@ -3,11 +3,11 @@
 // Connect 5V and GND
 // X goes to A0
 // Y goes to A1
-// Switch goes to 3
+// Switch goes to A2 // technically digital but what gives
 //
 // Have a 3 Pin water level sensor
 // Connect 5V and GND
-// Sensor goes to A2
+// Sensor goes to A3
 //
 // Then we basically just write to Serial
 // for Processing to pick it up
@@ -15,9 +15,9 @@
 
 int pinX = A0;
 int pinY = A1;
-int pinSwitch = 3;
+int pinSwitch = A2;
 int pinLed = 13;
-int pinSensor = A2;
+int pinSensor = A3;
 int sensorMin = 1023;
 int sensorMax = 0;
 int sensorValue;
@@ -57,5 +57,5 @@ void loop() {
   Serial.print(sensorMin);
   Serial.print(",");
   Serial.println(sensorMax);
-  delay(10);
+  delay(50);
 }
