@@ -11,7 +11,7 @@ Serial port;
 boolean controller = true;
 
 int waterTop = 70;
-int amountFish  = 20;
+int amountFish  = 23;
 int fontBodySize = 20;  
 int fontHeadlineSize = 42;
 PFont font;

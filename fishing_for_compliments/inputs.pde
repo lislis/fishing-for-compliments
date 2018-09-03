@@ -3,8 +3,8 @@ class Inputs {
   boolean right;
   boolean left;
   boolean clicked;
-  int xAxisThesholdMin = 100;
-  int xAxisThesholdMax = 920;
+  int xAxisThesholdMin = 150;
+  int xAxisThesholdMax = 870;
   int level;
   int levelMin;
   int levelMax;
